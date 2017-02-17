@@ -19,14 +19,27 @@ public class User {
 	private Calendar dt_birth;
 	private String tel;
 	private String email;
-	private char sex;
+	private String sex;
 	private int area;
 	
 	protected SimpleDateFormat formater =  new SimpleDateFormat("dd/MM/yyyy");
+	
+	public User(long id, String login, String password, String firstName, String lastName, Calendar dt, String tel,
+			String email, String sex, int area) {
+		this.id_user = id;
+		this.login = login;
+		this.password = password;
+		this.first_name = firstName;
+		this.last_name = lastName;
+		this.dt_birth = dt;
+		this.tel = tel;
+		this.email = email;
+		this.sex = sex;
+		this.area = area;
 
+	}
 	
 	//metodos geters e seters
-	
 	public long getId() {
 		return this.id_user;
 	}
@@ -95,7 +108,7 @@ public class User {
 		this.area = area;
 	}
 	
-	public char getSex() {
+	public String getSex() {
 		return this.sex;
 	}
 	

@@ -38,7 +38,7 @@ public class UserDao {
 			stmt.setDate(6, new java.sql.Date(Calendar.getInstance().getTimeInMillis()), cal);
 			stmt.setString(7, user.getTel());
 			stmt.setString(8, user.getEmail());
-			stmt.setLong(9, user.getSex());
+			stmt.setString(9, user.getSex());
 			stmt.setInt(10, user.getArea());
 			
 			//executa

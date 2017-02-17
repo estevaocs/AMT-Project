@@ -8,7 +8,7 @@ public class ConnectionFactory {
 	
 	public Connection getConnection() {
 		try {
-			return DriverManager.getConnection("jdbc:postgresql://localhost/agenda", "root", "");
+			return DriverManager.getConnection("jdbc:postgresql://localhost/bd_cadastro", "postgres", "postgres");
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
