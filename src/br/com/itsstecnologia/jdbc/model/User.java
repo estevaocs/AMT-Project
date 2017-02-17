@@ -55,7 +55,7 @@ public class User {
 	 * Metodo retorna a data de aniversario do usuario
 	 * @return Calendar
 	 */
-	public Calendar getDateBirth() {
+	public Calendar getCalendarBirth() {
 		return this.dt_birth;
 	}
 	
@@ -63,11 +63,11 @@ public class User {
 	 * Metodo que retorna a data de aniversario do usuario já formatada.
 	 * @return
 	 */
-	public String getDateBirthToString() {
+	public String getCalendarBirthToString() {
 		return formater.format(this.dt_birth);
 	}
 	
-	public void setDateBirth(Calendar date) {
+	public void setCalendarBirth(Calendar date) {
 		this.dt_birth = date;
 	}
 
