@@ -9,6 +9,7 @@ import java.util.Calendar;
 
 import br.com.itsstecnologia.jdbc.ConnectionFactory;
 import br.com.itsstecnologia.jdbc.model.User;
+import br.com.itsstecnologia.util.Criptografia;
 
 public class UserDao {
 
@@ -33,7 +34,7 @@ public class UserDao {
 			// set os valores
 			stmt.setLong(1, user.getId());
 			stmt.setString(2, user.getLogin());
-			stmt.setString(3, user.getPassword());
+			stmt.setString(3, Criptografia.criptografar(user.getPassword()));
 			stmt.setString(4, user.getFirstName());
 			stmt.setString(5, user.getLastName());
 			user.getCalendarBirth();
@@ -61,7 +62,7 @@ public class UserDao {
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			
 			stmt.setString(1, login);
-			stmt.setString(2, password);
+			stmt.setString(2, Criptografia.criptografar(password));
 			
 			ResultSet rs = stmt.executeQuery();
 			
@@ -149,6 +150,18 @@ public class UserDao {
 	         PreparedStatement stmt = connection
 	                 .prepareStatement("delete from usuario where id_user=?");
 	         stmt.setLong(1, user.getId());
+	         stmt.execute();
+	         stmt.close();
+	     } catch (SQLException e) {
+	         throw new RuntimeException(e);
+	     }
+	}
+	
+	public void remove(int id) {
+	     try {
+	         PreparedStatement stmt = connection
+	                 .prepareStatement("delete from usuario where id_user=?");
+	         stmt.setLong(1, Integer.toUnsignedLong(id));
 	         stmt.execute();
 	         stmt.close();
 	     } catch (SQLException e) {
