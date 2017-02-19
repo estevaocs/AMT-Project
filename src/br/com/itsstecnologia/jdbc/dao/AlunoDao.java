@@ -9,6 +9,7 @@ import java.util.Calendar;
 
 import br.com.itsstecnologia.jdbc.ConnectionFactory;
 import br.com.itsstecnologia.jdbc.model.Aluno;
+import br.com.itsstecnologia.jdbc.model.Turma;
 
 public class AlunoDao {
 		
@@ -46,7 +47,7 @@ public class AlunoDao {
 				stmt.setString(9, aluno.getSex());
 				stmt.setInt(10, aluno.getNivel());
 				stmt.setString(11, aluno.getArea());
-				stmt.setLong(12, aluno.getId_turma());
+				stmt.setLong(12, aluno.getId());
 				
 				stmt.execute();
 				stmt.close();
@@ -57,12 +58,14 @@ public class AlunoDao {
 			
 		}
 		
-		public ArrayList<Aluno> getLista() {
+		public ArrayList<Aluno> getLista() throws Exception {
 		     try {
 		         ArrayList<Aluno> alunos = new ArrayList<Aluno>();
 		         PreparedStatement stmt = this.connection.
 		                 prepareStatement("select * from aluno");
 		         ResultSet rs = stmt.executeQuery();
+		         
+		         TurmaDao dao = new TurmaDao();
 		 
 		         while (rs.next()) {
 		             // criando o objeto user
@@ -78,9 +81,11 @@ public class AlunoDao {
 		        	 String sex = rs.getString("sex");
 		        	 int nivel = rs.getInt("permission_lvl");
 		        	 String area = rs.getString("area");
-		        	 long idTurma = rs.getLong("id_turma");
+		        	 long idTurma = rs.getInt("id_turma");
 		        	 
-		             Aluno aluno = new Aluno(id, login, password, name, lastName, data, tel, email, sex, nivel, area,idTurma);
+		        	 Turma turma = dao.getList().get(getIndex(dao.getList(), idTurma));
+		        	 
+		             Aluno aluno = new Aluno(id, login, password, name, lastName, data, tel, email, sex, nivel, area,turma);
 		 
 		             // adicionando o objeto � lista
 		             alunos.add(aluno);
@@ -117,7 +122,7 @@ public class AlunoDao {
 				stmt.setString(8, aluno.getSex());
 				stmt.setInt(9, aluno.getNivel());
 				stmt.setString(10, aluno.getArea());
-				stmt.setLong(11, aluno.getId_turma());
+				stmt.setLong(11, aluno.getTurma().getId_turma());
 
 				// executa
 				stmt.execute();
@@ -142,5 +147,12 @@ public class AlunoDao {
 		     } catch (SQLException e) {
 		         throw new RuntimeException(e);
 		     }
+		}
+		
+		private int getIndex(ArrayList<Turma> list, long id){
+			for (int i = 0; i < list.size(); i++) {
+				if(list.get(i).getId_turma() == id) return i;
+			}
+			return -1;
 		}
 }

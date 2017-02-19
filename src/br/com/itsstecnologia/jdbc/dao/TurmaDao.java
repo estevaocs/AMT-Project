@@ -82,7 +82,7 @@ public class TurmaDao {
 				
 	}
 	
-	public ArrayList<Turma> getList() {
+	public ArrayList<Turma> getList() throws Exception {
 		ArrayList<Turma> list = new ArrayList<Turma>();
 		String sql = "SELECT * FROM turma";
 		InstrutorDao daoInst = new InstrutorDao();

@@ -13,7 +13,7 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry kind="lib" path="C:/Users/admin/Downloads/postgresql-9.4.1212.jre6.jar"/>
-	<classpathentry kind="lib" path="C:/Users/admin/Documents/jdbc-api-1.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Estevão/workspace/AMT-Project/jdbc-api-1.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Estevão/workspace/AMT-Project/postgresql-9.4.1212.jre6.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
