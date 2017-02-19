@@ -6,7 +6,7 @@ import java.util.Calendar;
 import br.com.itsstecnologia.util.Criptografia;
 
 /**
- * @author Estevão Cristino
+ * @author Estevï¿½o Cristino
  *
  */
 public class User {
@@ -20,22 +20,22 @@ public class User {
 	private String tel;
 	private String email;
 	private String sex;
-	private int area;
+	private int nvl_acesso;
 	
 	protected SimpleDateFormat formater =  new SimpleDateFormat("dd/MM/yyyy");
 	
 	public User(long id, String login, String password, String firstName, String lastName, Calendar dt, String tel,
-			String email, String sex, int area) {
+			String email, String sex, int nvl) {
 		this.id_user = id;
 		this.login = login;
-		this.password = password;
+		this.password = Criptografia.criptografar(password);
 		this.first_name = firstName;
 		this.last_name = lastName;
 		this.dt_birth = dt;
 		this.tel = tel;
 		this.email = email;
 		this.sex = sex;
-		this.area = area;
+		this.nvl_acesso = nvl;
 
 	}
 	
@@ -73,7 +73,7 @@ public class User {
 	}
 	
 	/**
-	 * Metodo que retorna a data de aniversario do usuario já formatada.
+	 * Metodo que retorna a data de aniversario do usuario jï¿½ formatada.
 	 * @return
 	 */
 	public String getCalendarBirthToString() {
@@ -99,14 +99,6 @@ public class User {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-
-	public int getArea() {
-		return area;
-	}
-
-	public void setArea(int area) {
-		this.area = area;
-	}
 	
 	public String getSex() {
 		return this.sex;
@@ -122,6 +114,14 @@ public class User {
 	
 	public void setPassword(String password) {
 		this.password = Criptografia.criptografar(password);
+	}
+	
+	public int getNivel() {
+		return this.nvl_acesso;
+	}
+	
+	public void setNivel(int nvl) {
+		this.nvl_acesso = nvl;
 	}
 	
 }

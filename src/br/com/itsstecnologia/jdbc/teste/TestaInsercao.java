@@ -1,90 +1,67 @@
 package br.com.itsstecnologia.jdbc.teste;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Scanner;
 
-import br.com.itsstecnologia.jdbc.dao.UserDao;
+import com.sun.org.apache.xerces.internal.impl.xpath.regex.ParseException;
+
+import br.com.itsstecnologia.jdbc.dao.AdminDao;
+import br.com.itsstecnologia.jdbc.model.Admin;
 import br.com.itsstecnologia.jdbc.model.User;
 
 public class TestaInsercao {
 
 	public static Scanner scn = new Scanner(System.in);
-	public static UserDao dao = new UserDao();
+	public static AdminDao dao = new AdminDao();
 	public static ArrayList<User> lista = new ArrayList<User>();
+	private static Scanner sc;
 
-	public static void main(String[] args) {
-		int op;
-		boolean sair = false;
-		
-		
-		do {
-			System.out.println("digite a opcao");
-			System.out.println("1 - login");
-			System.out.println("2 - cadastro");
-			System.out.println("3 - ver todos os usuarios");
-			System.out.println("0 - sair");
+	public static void main(String[] args) throws java.text.ParseException {
+		try {
+			sc = new Scanner(System.in);
+			SimpleDateFormat formater =  new SimpleDateFormat("dd/MM/yyyy");
 			
-			op =  scn.nextInt();
-			switch(op) {
-				case 1:
-					login(args);
-					break;
-				case 2:
-					cadastro(args);
-					break;
-				case 3:
-					verUsuarios(args);
-					break;
-				case 0:
-					sair = true;
-					break
-				default:
-					System.out.println("Tente novamente");
-					main(args);
-			}
-		} while (sair == false);
+			long id = 1;
+			String login;
+			String password;
+			String name;
+			String lastName;
+			String data;
+			Calendar dt = Calendar.getInstance();
+			String tel;
+			String email;
+			String sex;
+			int nvl = 1;
 		
-		scn.close();
-		System.exit(0);
-	}
-
-	private static void verUsuarios(String[] args) {
+			System.out.println("login:");
+			login = sc.nextLine();
+			System.out.println("password:");
+			password = sc.nextLine();
+			System.out.println("nome");
+			name = sc.nextLine();
+			System.out.println("sobrenome");
+			lastName = sc.nextLine();
+			System.out.println("data:");
+			data = sc.nextLine();
+			dt.setTime(formater.parse(data));
+			System.out.println("tel");
+			tel = sc.nextLine();
+			System.out.println("email");
+			email = sc.nextLine();
+			System.out.println("sexo");
+			sex = sc.nextLine();
 		
-	}
-
-	private static void cadastro(String[] args) {
-		lista = dao.getLista();
 		
-		long id = Integer.toUnsignedLong(lista.size());
-		String login;
-		String password;
-		String first_name;
-		String last_name;
-		Calendar dt_birth;
-		String tel;
-		String email;
-		String sex;
-		int area;
 		
-		System.out.println("Digite o usuario:");
-		
-	}
-
-	private static void login() {
-		String login;
-		String senha;
-		
-		System.out.println("login: ");
-		login = scn.nextLine();
-		System.out.println("senha: ");
-		senha = scn.nextLine();
-		
-		if(dao.login(login, senha)) {
-			System.out.println("logado com sucesso");
-		} else {
-			System.out.println("usuario e senha invalidos");
+			Admin adm = new Admin(id, login, password, name, lastName, dt, tel, email, sex, nvl);
+			dao.add(adm);
+			
+			System.out.println();
+		} catch (ParseException e) {
+			e.printStackTrace();
 		}
 	}
-	
+
 }
