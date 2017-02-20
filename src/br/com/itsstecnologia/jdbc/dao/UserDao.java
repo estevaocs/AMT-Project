@@ -52,70 +52,56 @@ public class UserDao {
 			throw new RuntimeException(e);
 		}
 	}
-	
+
 	public boolean login(String login, String password) {
 		String sql = "select * from usuario where login=? and password=?";
 		boolean status = false;
-		
+
 		try {
-			
+
 			PreparedStatement stmt = connection.prepareStatement(sql);
-			
+
 			stmt.setString(1, login);
 			stmt.setString(2, Criptografia.criptografar(password));
-			
+
 			ResultSet rs = stmt.executeQuery();
-			
+
 			status = rs.next();
-			
+
 			rs.close();
-	        stmt.close();
+			stmt.close();
 			return status;
-			
+
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
-		
+
 	}
-	
+
 	public ArrayList<User> getLista() {
-	     try {
-	         ArrayList<User> users = new ArrayList<User>();
-	         PreparedStatement stmt = this.connection.
-	                 prepareStatement("select * from usuario");
-	         ResultSet rs = stmt.executeQuery();
-	 
-	         while (rs.next()) {
-	             // criando o objeto user
-	        	 long id = rs.getLong("id_user");
-	        	 String login = rs.getString("login");
-	        	 String password = rs.getString("password");
-	        	 String name = rs.getString("first_name");
-	        	 String lastName = rs.getString("last_name");
-	        	 Calendar data = Calendar.getInstance();
-	        	 data.setTime(rs.getDate("dt_birth"));
-	        	 String tel =  rs.getString("tel");
-	        	 String email =  rs.getString("email");
-	        	 String sex = rs.getString("sex");
-	        	 int nivel = rs.getInt("permission_lvl");
-	        	 
-	             User user = new User(id, login, password, name, lastName, data, tel, email, sex, nivel);
-	 
-	             // adicionando o objeto � lista
-	             users.add(user);
-	         }
-	         rs.close();
-	         stmt.close();
-	         return users;
-	     } catch (SQLException e) {
-	         throw new RuntimeException(e);
-	     }
-	 }
+		try {
+			ArrayList<User> users = new ArrayList<User>();
+			PreparedStatement stmt = this.connection.prepareStatement("select * from usuario");
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				// criando o objeto user
+				User user = instaciandoUser(rs);
+
+				// adicionando o objeto User lista
+				users.add(user);
+			}
+			rs.close();
+			stmt.close();
+			return users;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
 
 	public void edit(User user) {
 		String sql = "update usuario set login,password = ?, first_name = ?,"
-				+ " last_name = ?, dt_birth = ?, tel =?, email = ?, sex = ?,"
-				+ " permission_lvl = ? where id_user = ?";
+				+ " last_name = ?, dt_birth = ?, tel =?, email = ?, sex = ?," + " permission_lvl = ? where id_user = ?";
 
 		try {
 			// Prepared Statement para inser��o
@@ -142,16 +128,53 @@ public class UserDao {
 			throw new RuntimeException(e);
 		}
 	}
-	
+
 	public void remove(User user) {
-	     try {
-	         PreparedStatement stmt = connection
-	                 .prepareStatement("delete from usuario where id_user=?");
-	         stmt.setLong(1, user.getId());
-	         stmt.execute();
-	         stmt.close();
-	     } catch (SQLException e) {
-	         throw new RuntimeException(e);
-	     }
+		try {
+			PreparedStatement stmt = connection.prepareStatement("delete from usuario where id_user=?");
+			stmt.setLong(1, user.getId());
+			stmt.execute();
+			stmt.close();
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	public User doLogin(String login, String password) {
+		try {
+			String sql = "SELECT * FROM usuario WHERE login = ? AND password = ?";
+			PreparedStatement stmt = connection.prepareStatement(sql);
+			stmt.setString(1, login);
+			stmt.setString(2, Criptografia.criptografar(password));
+			ResultSet rs = stmt.executeQuery();
+
+			if (rs.next()) {
+				User user = instaciandoUser(rs);
+				return user;
+			} else
+				return null;
+		} catch (SQLException e) {
+			throw new RuntimeException(e);
+		}
+	}
+
+	private User instaciandoUser(ResultSet rs) throws SQLException {
+
+		User user;
+		long id = rs.getLong("id_user");
+		String login = rs.getString("login");
+		String password = rs.getString("password");
+		String name = rs.getString("first_name");
+		String lastName = rs.getString("last_name");
+		Calendar data = Calendar.getInstance();
+		data.setTime(rs.getDate("dt_birth"));
+		String tel = rs.getString("tel");
+		String email = rs.getString("email");
+		String sex = rs.getString("sex");
+		int nivel = rs.getInt("permission_lvl");
+
+		user = new User(id, login, password, name, lastName, data, tel, email, sex, nivel);
+
+		return user;
 	}
 }
