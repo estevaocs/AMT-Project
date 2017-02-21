@@ -1,0 +1,12 @@
+html, body {
+  background: #0000a0;
+  padding: 10px;
+  font-family: 'Varela Round', ;
+}
+
+div .login-form {
+	background: blue;
+	position: relative;
+	background-color: blue;
+}
+

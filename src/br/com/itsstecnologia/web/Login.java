@@ -26,7 +26,7 @@ public class Login extends HttpServlet {
 			wrt.println("<html><body>Usuário Invalido</body></html>");
 		} else {
 			Cookie cookie = new Cookie("Usuário.logado", usuario.getFullyName());
-			resp.addCookie(cookies);
+			resp.addCookie(cookie);
 			wrt.println("<html><body>Usuário logado: " + usuario.getFullyName() +"</body></html>");
 		}
 	}
