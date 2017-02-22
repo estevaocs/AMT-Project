@@ -41,8 +41,7 @@ public class InstrutorDao {
 			stmt.setString(4, instrutor.getPassword());
 			stmt.setString(5, instrutor.getFirstName());
 			stmt.setString(6, instrutor.getLastName());
-			instrutor.getCalendarBirth();
-			stmt.setDate(7, new java.sql.Date(Calendar.getInstance().getTimeInMillis()), cal);
+			stmt.setDate(5,(java.sql.Date) instrutor.getCalendarBirth().getTime(), cal);
 			stmt.setString(8, instrutor.getTel());
 			stmt.setString(9, instrutor.getEmail());
 			stmt.setString(10, instrutor.getSex());

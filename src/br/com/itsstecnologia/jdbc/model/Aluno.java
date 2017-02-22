@@ -32,4 +32,15 @@ public class Aluno extends User {
 		this.turma = turma;
 	}
 	
+	public int getDayOfBirth() {
+		return Integer.parseInt(getCalendarBirthToString().substring(0,3));
+	}
+	
+	public int getMonthOfBirth() {
+		return Integer.parseInt(getCalendarBirthToString().substring(4,6));
+	}
+	
+	public int getYearOfBirth() {
+		return Integer.parseInt(getCalendarBirthToString().substring(7));
+	}
 }

@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 import br.com.itsstecnologia.jdbc.ConnectionFactory;
 import br.com.itsstecnologia.jdbc.model.User;
@@ -101,7 +102,8 @@ public class UserDao {
 
 	public void edit(User user) {
 		String sql = "update usuario set login,password = ?, first_name = ?,"
-				+ " last_name = ?, dt_birth = ?, tel =?, email = ?, sex = ?," + " permission_lvl = ? where id_user = ?";
+				+ " last_name = ?, dt_birth = ?, tel =?, email = ?, sex = ?," 
+				+ " permission_lvl = ? where id_user = ?";
 
 		try {
 			// Prepared Statement para inser��o
@@ -113,8 +115,7 @@ public class UserDao {
 			stmt.setString(2, user.getPassword());
 			stmt.setString(3, user.getFirstName());
 			stmt.setString(4, user.getLastName());
-			user.getCalendarBirth();
-			stmt.setDate(5, new java.sql.Date(Calendar.getInstance().getTimeInMillis()), cal);
+			stmt.setDate(5,(java.sql.Date) user.getCalendarBirth().getTime(), cal);
 			stmt.setString(6, user.getTel());
 			stmt.setString(7, user.getEmail());
 			stmt.setString(8, user.getSex());

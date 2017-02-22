@@ -40,8 +40,7 @@ public class AlunoDao {
 				stmt.setString(3, aluno.getPassword());
 				stmt.setString(4, aluno.getFirstName());
 				stmt.setString(5, aluno.getLastName());
-				aluno.getCalendarBirth();
-				stmt.setDate(6, new java.sql.Date(Calendar.getInstance().getTimeInMillis()), cal);
+				stmt.setDate(5,(java.sql.Date) aluno.getCalendarBirth().getTime(), cal);
 				stmt.setString(7, aluno.getTel());
 				stmt.setString(8, aluno.getEmail());
 				stmt.setString(9, aluno.getSex());
