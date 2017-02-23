@@ -67,22 +67,7 @@ public class InstrutorDao {
 	 
 	         while (rs.next()) {
 	             // criando o objeto user
-	        	 long id = rs.getLong("id_user");
-	        	 Horario horario = dao.getList().get(getIndex(dao.getList(), rs.getLong("id_horario")));
-	        	 String login = rs.getString("login");
-	        	 String password = rs.getString("password");
-	        	 String name = rs.getString("first_name");
-	        	 String lastName = rs.getString("last_name");
-	        	 Calendar data = Calendar.getInstance();
-	        	 data.setTime(rs.getDate("dt_birth"));
-	        	 String tel =  rs.getString("tel");
-	        	 String email =  rs.getString("email");
-	        	 String sex = rs.getString("sex");
-	        	 int nivel = rs.getInt("permission_lvl");
-	        	 String area = rs.getString("area");
-	        	 
-	             Instrutor instrutor = new Instrutor(id, login, password, name, lastName, data, tel, email, sex,
-	            		 nivel, area, horario);	 
+	        	 Instrutor instrutor = instaciaInstrutor(dao, rs);	 
 	             
 	             // adicionando o objeto � lista
 	             instrutores.add(instrutor);
@@ -94,6 +79,26 @@ public class InstrutorDao {
 	         throw new RuntimeException(e);
 	     }
 	 }
+
+	private Instrutor instaciaInstrutor(HorarioDao dao, ResultSet rs) throws SQLException {
+		long id = rs.getLong("id_user");
+		 Horario horario = dao.getList().get(getIndex(dao.getList(), rs.getLong("id_horario")));
+		 String login = rs.getString("login");
+		 String password = rs.getString("password");
+		 String name = rs.getString("first_name");
+		 String lastName = rs.getString("last_name");
+		 Calendar data = Calendar.getInstance();
+		 data.setTime(rs.getDate("dt_birth"));
+		 String tel =  rs.getString("tel");
+		 String email =  rs.getString("email");
+		 String sex = rs.getString("sex");
+		 int nivel = rs.getInt("permission_lvl");
+		 String area = rs.getString("area");
+		 
+		 Instrutor instrutor = new Instrutor(id, login, password, name, lastName, data, tel, email, sex,
+				 nivel, area, horario);
+		return instrutor;
+	}
 	
 	public void edit(Instrutor inst) {
 		String sql = "Update instrutor set login = ? , password = ? , first_name = ?, last_name = ?, dt_birth = ?,"
@@ -111,8 +116,7 @@ public class InstrutorDao {
 			stmt.setString(2, inst.getPassword());
 			stmt.setString(3, inst.getFirstName());
 			stmt.setString(4, inst.getLastName());
-			inst.getCalendarBirth();
-			stmt.setDate(5, new java.sql.Date(Calendar.getInstance().getTimeInMillis()), cal);
+			stmt.setDate(5,new java.sql.Date(inst.getCalendarBirth().getTimeInMillis()));
 			stmt.setString(6, inst.getTel());
 			stmt.setString(7, inst.getEmail());
 			stmt.setString(8, inst.getSex());

@@ -115,7 +115,7 @@ public class UserDao {
 			stmt.setString(2, user.getPassword());
 			stmt.setString(3, user.getFirstName());
 			stmt.setString(4, user.getLastName());
-			stmt.setDate(5,(java.sql.Date) user.getCalendarBirth().getTime(), cal);
+			stmt.setDate(5,new java.sql.Date(user.getCalendarBirth().getTimeInMillis()));
 			stmt.setString(6, user.getTel());
 			stmt.setString(7, user.getEmail());
 			stmt.setString(8, user.getSex());

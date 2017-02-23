@@ -103,7 +103,7 @@ public class AdminDao {
 			stmt.setString(2, admin.getPassword());
 			stmt.setString(3, admin.getFirstName());
 			stmt.setString(4, admin.getLastName());
-			stmt.setDate(5,new java.sql.Date(admin.getCalendarBirth().MILLISECOND()), cal);
+			stmt.setDate(5,new java.sql.Date(admin.getCalendarBirth().getTimeInMillis()));
 			stmt.setString(6, admin.getTel());
 			stmt.setString(7, admin.getEmail());
 			stmt.setString(8, admin.getSex());

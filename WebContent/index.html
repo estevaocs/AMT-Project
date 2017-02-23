@@ -1,29 +1,44 @@
 <!DOCTYPE html>
 <html>
-	<head>
-		<title>Projeto Laboratorio - App Gerenciador de Treinamento</title>
-		<meta charset="utf-8">
-		<link href="/css/reset.css" media="screen" rel="stylesheet">
-		<link href="/estilo.css" rel="stylesheet">
-		<script src="indexJS.js"></script>
-		<style></style>
-	</head> 
-	<body>
-		<div id="login-form">
-			<div id="label">
-				<label>Gerenciamento de Treinamentos</label>
-			</div>
-			<div id="campos">
-				<form action="Login" method="post">
-					<input name="login" id="login_username" class="form-control" type="text" placeholder="Usuario" required>
-					<input name="password" id="login_password" class="form-control" type="password" placeholder="Senha" required>
-					<div id="btn-div">
-						<button type="submit" class="btn btn-primary btn-lg btn-block">Login</button>
-					</div>
-				</form>
-			</div>
-		</div>
-	</body>
-	<footer>
-	</footer>
+<head>
+<meta charset="utf-8">
+<title>Projeto Laboratorio - App Gerenciador de Treinamento</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	crossorigin="anonymous">
+<link href="\css\estilo.css" rel="stylesheet" type="text/css">
+<script src="indexJS.js"></script>
+</head>
+<body>
+	<div class="container col-xs-12 col-sm-offset-2 col-sm-8 col-md-offset-3 col-md-6 col-lg-offset-4 col-lg-4">
+            <br />
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h1>Login</h1>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-user" style="width: auto"></i>
+                            </span>
+                            <input id="txtUsuario" runat="server" type="text" class="form-control" name="user" placeholder="Usuário" required="" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                <i class="glyphicon glyphicon-lock" style="width: auto"></i>
+                            </span>
+                            <input id="txtSenha" runat="server" type="password" class="form-control" name="password" placeholder="Senha" required="" />
+                        </div>
+                    </div>
+                    <button id="btnLogin" runat="server" class="btn btn-default" style="width: 100%">
+                        ENTRAR<i class="glyphicon glyphicon-log-in"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+</body>
 </html>

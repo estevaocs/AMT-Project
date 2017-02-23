@@ -12,9 +12,7 @@ import br.com.itsstecnologia.jdbc.model.Aluno;
 import br.com.itsstecnologia.jdbc.model.Turma;
 
 public class AlunoDao {
-		
-		private Calendar cal;
-		
+	
 		private Connection connection;
 		
 		private UserDao dao = new UserDao();
@@ -40,7 +38,7 @@ public class AlunoDao {
 				stmt.setString(3, aluno.getPassword());
 				stmt.setString(4, aluno.getFirstName());
 				stmt.setString(5, aluno.getLastName());
-				stmt.setDate(5,(java.sql.Date) aluno.getCalendarBirth().getTime(), cal);
+				stmt.setDate(5,new java.sql.Date(aluno.getCalendarBirth().getTimeInMillis()));
 				stmt.setString(7, aluno.getTel());
 				stmt.setString(8, aluno.getEmail());
 				stmt.setString(9, aluno.getSex());
@@ -68,23 +66,7 @@ public class AlunoDao {
 		 
 		         while (rs.next()) {
 		             // criando o objeto user
-		        	 long id = rs.getLong("id_user");
-		        	 String login = rs.getString("login");
-		        	 String password = rs.getString("password");
-		        	 String name = rs.getString("first_name");
-		        	 String lastName = rs.getString("last_name");
-		        	 Calendar data = Calendar.getInstance();
-		        	 data.setTime(rs.getDate("dt_birth"));
-		        	 String tel =  rs.getString("tel");
-		        	 String email =  rs.getString("email");
-		        	 String sex = rs.getString("sex");
-		        	 int nivel = rs.getInt("permission_lvl");
-		        	 String area = rs.getString("area");
-		        	 long idTurma = rs.getInt("id_turma");
-		        	 
-		        	 Turma turma = dao.getList().get(getIndex(dao.getList(), idTurma));
-		        	 
-		             Aluno aluno = new Aluno(id, login, password, name, lastName, data, tel, email, sex, nivel, area,turma);
+		        	 Aluno aluno = instaciaAluno(rs, dao);
 		 
 		             // adicionando o objeto � lista
 		             alunos.add(aluno);
@@ -96,6 +78,27 @@ public class AlunoDao {
 		         throw new RuntimeException(e);
 		     }
 		 }
+
+		private Aluno instaciaAluno(ResultSet rs, TurmaDao dao) throws SQLException, Exception {
+			long id = rs.getLong("id_user");
+			 String login = rs.getString("login");
+			 String password = rs.getString("password");
+			 String name = rs.getString("first_name");
+			 String lastName = rs.getString("last_name");
+			 Calendar data = Calendar.getInstance();
+			 data.setTime(rs.getDate("dt_birth"));
+			 String tel =  rs.getString("tel");
+			 String email =  rs.getString("email");
+			 String sex = rs.getString("sex");
+			 int nivel = rs.getInt("permission_lvl");
+			 String area = rs.getString("area");
+			 long idTurma = rs.getInt("id_turma");
+			 
+			 Turma turma = dao.getList().get(getIndex(dao.getList(), idTurma));
+			 
+			 Aluno aluno = new Aluno(id, login, password, name, lastName, data, tel, email, sex, nivel, area,turma);
+			return aluno;
+		}
 		
 		public void edit(Aluno aluno) {
 			String sql = "Update aluno set login = ? , password = ? , first_name = ?, last_name = ?, "
@@ -114,8 +117,7 @@ public class AlunoDao {
 				stmt.setString(2, aluno.getPassword());
 				stmt.setString(3, aluno.getFirstName());
 				stmt.setString(4, aluno.getLastName());
-				aluno.getCalendarBirth();
-				stmt.setDate(5, new java.sql.Date(Calendar.getInstance().getTimeInMillis()), cal);
+				stmt.setDate(5,new java.sql.Date(aluno.getCalendarBirth().getTimeInMillis()));
 				stmt.setString(6, aluno.getTel());
 				stmt.setString(7, aluno.getEmail());
 				stmt.setString(8, aluno.getSex());

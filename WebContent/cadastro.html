@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Cadastrar</title>
+	<link href="/css/cadastro.css" rel="stylesheet">
+	<script type="/WEB-INF/js/jquery-3.1.1.min.js"></script>
+	<script type="/WEB-INF/js/mask.js"></script>
+</head>
+<body>
+	<h1>Cadastro</h1>
+	<div>
+		<form action="cadastro">
+			<label>Usuário :</label>
+			<input name="usuario" id="usuario" class="form" placeholder="usuario" type="text" required="required">
+			<label>Senha :</label>
+			<input name="password" id="password" class="form" placeholder="senha" type="password" required="required">
+			<label>Confirma Senha:</label>
+			<input name="passwordConfirm" id="password" class="form" placeholder="senha" type="password" required="required">
+			<label>Nome :</label>
+			<input name="nome" id="nome" class="form" placeholder="nome" type="text" required="required">
+			<label>Sobrenome :</label>
+			<input name="sobrenome" id="nome" class="form" placeholder="nome" type="text" required="required">
+			<label>Data de Nascimento :</label>
+			<input name="dtNascimento" id="dt" class="form" type="date" required="required">
+			<label>Telefone :</label>
+			<input name="telefone" id="tel" class="form" type="tel" pattern="\([0-9]{2}\)[\s][0-9]{4}-[0-9]{4}" data-mask="(00) 0000-0000" data-mask-selectonfocus="true">
+		</form>
+	</div>
+</body>
+</html>

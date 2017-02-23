@@ -9,6 +9,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.websocket.Session;
 
 import br.com.itsstecnologia.jdbc.dao.UserDao;
 import br.com.itsstecnologia.jdbc.model.User;
@@ -25,8 +26,8 @@ public class Login extends HttpServlet {
 		if(usuario ==  null) {
 			wrt.println("<html><body>Usuário Invalido</body></html>");
 		} else {
-			Cookie cookie = new Cookie("Usuário.logado", usuario.getFullyName());
-			resp.addCookie(cookie);
+			Session session = new Login();
+			resp.addCookie(session);
 			wrt.println("<html><body>Usuário logado: " + usuario.getFullyName() +"</body></html>");
 		}
 	}
