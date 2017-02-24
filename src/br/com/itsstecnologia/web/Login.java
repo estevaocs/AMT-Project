@@ -19,15 +19,13 @@ public class Login extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String login = req.getParameter("login");
-		String password = req.getParameter("password");
+		String login = req.getParameter("usuario");
+		String password = req.getParameter("senha");
 		User usuario = new UserDao().doLogin(login, password);
 		PrintWriter wrt = resp.getWriter();
 		if(usuario ==  null) {
 			wrt.println("<html><body>Usuário Invalido</body></html>");
 		} else {
-			Session session = new Login();
-			resp.addCookie(session);
 			wrt.println("<html><body>Usuário logado: " + usuario.getFullyName() +"</body></html>");
 		}
 	}

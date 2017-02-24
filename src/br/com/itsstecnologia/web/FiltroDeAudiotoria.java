@@ -8,8 +8,10 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 
+@WebFilter(urlPatterns = "/*")
 public class FiltroDeAudiotoria implements Filter {
 
 	@Override
@@ -17,12 +19,13 @@ public class FiltroDeAudiotoria implements Filter {
 	}
 
 	@Override
-	public void doFilter(ServletRequest reqst, ServletResponse res, FilterChain chain)
-			throws IOException, ServletException {
-		HttpServletRequest req = (HttpServletRequest) reqst;
-		String uri = req.getRequestURI();
-		System.out.println("Usuario acessando a URI: " + uri);
-		chain.doFilter(reqst, res);
+	public void doFilter(ServletRequest request, ServletResponse response,
+	        FilterChain chain) throws IOException, ServletException {
+
+	    HttpServletRequest req = (HttpServletRequest) request;
+	    System.out.println("Usuario acessando a URI " + req.getRequestURI());
+	    chain.doFilter(request, response);
+
 	}
 
 	@Override

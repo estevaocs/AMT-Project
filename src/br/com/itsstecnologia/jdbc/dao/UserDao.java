@@ -143,7 +143,7 @@ public class UserDao {
 
 	public User doLogin(String login, String password) {
 		try {
-			String sql = "SELECT * FROM usuario WHERE login = ? AND password = ?";
+			String sql = "SELECT * FROM usuario WHERE login = ? AND password = ? ";
 			PreparedStatement stmt = connection.prepareStatement(sql);
 			stmt.setString(1, login);
 			stmt.setString(2, Criptografia.criptografar(password));
